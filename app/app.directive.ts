@@ -13,7 +13,7 @@ function validateJuriNameFactory() : ValidatorFn {
     } else {
       return {
         juriName: {
-          valid: false
+          valid: false //if the yisValid variable isnt valid value, return false
         }
       };
     }
@@ -32,7 +32,7 @@ export class JuriNameValidator implements Validator {
   validator: ValidatorFn;
   
   constructor() {
-    this.validator = validateJuriNameFactory();
+    this.validator = validateJuriNameFactory();//call for the function validateJuriNameFactory
   }
   
   validate(c: FormControl) {

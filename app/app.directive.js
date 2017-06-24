@@ -20,7 +20,7 @@ function validateJuriNameFactory() {
         else {
             return {
                 juriName: {
-                    valid: false
+                    valid: false //if the yisValid variable isnt valid value, return false
                 }
             };
         }
@@ -28,7 +28,7 @@ function validateJuriNameFactory() {
 }
 var JuriNameValidator = (function () {
     function JuriNameValidator() {
-        this.validator = validateJuriNameFactory();
+        this.validator = validateJuriNameFactory(); //call for the function validateJuriNameFactory
     }
     JuriNameValidator.prototype.validate = function (c) {
         return this.validator(c);
