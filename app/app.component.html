@@ -1,0 +1,70 @@
+<div class="container container-fluid">
+  <h1>Template driven form with built-in form validation</h1>
+  <form #myForm="ngForm" (ngSubmit)="onSubmit(myForm.value)"> <!-- Create a form with onSubmit event defined in app.component.ts  -->
+    <div class="form-group"> <!-- Create a form group  -->
+      <label>Name</label>
+      <input type="text" name="name" minlength="4" required class="form-control"  #nameRef="ngModel" [(ngModel)]="myForm.nameRef">
+      <!-- For the input name, check for required field and minlength and assign ngModel directive for two way binding -->
+      <div *ngIf="nameRef.errors && (nameRef.dirty || nameRef.touched)" class="alert alert-danger"><!--  Display only if user has attempted to enter values into the field -->
+           <div [hidden]="!nameRef.errors.required"> Please enter a name</div><!-- Display alert only if user has not entered in the field -->
+           <div [hidden]="!nameRef.errors.minlength"> Please enter atleast 4 characters</div>  <!-- Display alert only if user has not entered min length of input -->         
+      </div>
+    </div>
+
+    <div class="form-group"><!-- Create a form group  -->
+      <label>User Name</label>
+      <input type="text" juriName  name="username"  required class="form-control"  #usernameRef="ngModel" [(ngModel)]="myForm.usernameRef">
+      <!-- For the input username, check for required field and minlength and assign ngModel directive for two way binding -->
+      <div *ngIf="usernameRef.errors && (usernameRef.dirty || usernameRef.touched)" class="alert alert-danger"><!-- Display only if user has attempted to enter values into the field -->
+           <div [hidden]="!usernameRef.errors.required"> Please enter an username</div><!-- Display alert only if user has not entered in the field  -->       
+          <p *ngIf="!usernameRef.errors.required && usernameRef.errors.juriName"> Only allowed name is "Juri" ;)</p>
+      </div>
+    </div>
+
+    <div class="form-group"> <!-- Create a form group -->
+      <label>Email</label>
+      <input type="email" name="email" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" required class="form-control"  #emailRef="ngModel" [(ngModel)]="myForm.emailRef">
+      <!-- For the input email, check for required field and minlength and assign ngModel directive for two way binding -->
+      <div *ngIf="emailRef.errors && (emailRef.dirty || emailRef.touched)" class="alert alert-danger"><!-- Display only if user has attempted to enter values into the field -->
+           <div [hidden]="!emailRef.errors.required"> Please enter an email</div>   <!-- Display alert only if user has not entered in the field -->      
+           <div [hidden]="!emailRef.errors.pattern"> Invalid email format</div> <!--Display alert only if user has not entered valid email format  -->  
+
+      </div>
+    </div>
+
+    <div class="form-group"> <!-- Create a form group -->
+      <label>Mobile</label>
+      <input type="tel" name="mobile" maxlength="10" required class="form-control"  #mobRef="ngModel" [(ngModel)]="myForm.mobRef">
+      <!--For the input mobile, check for required field and minlength and assign ngModel directive for two way binding  -->
+      <div *ngIf="mobRef.errors && (mobRef.dirty || mobRef.touched)" class="alert alert-danger"><!-- Display only if user has attempted to enter values into the field -->
+           <div [hidden]="!mobRef.errors.required"> Please enter a mobile number</div>  <!-- Display alert only if user has not entered in the field -->       
+      </div>
+    </div>
+
+    <div class="form-group"><!--Create a form group  -->
+      <label>Password</label>
+      <input type="password" name="password" minlength="8"   required class="form-control"  #pwRef="ngModel" [(ngModel)]="myForm.pwRef">
+      <!-- For the input password, check for required field and minlength and assign ngModel directive for two way binding -->
+      <div *ngIf="pwRef.errors && (pwRef.dirty || pwRef.touched)" class="alert alert-danger"><!--Display only if user has attempted to enter values into the field  -->
+           <div [hidden]="!pwRef.errors.required"> Please enter a password</div>  <!--Display alert only if user has not entered in the field  -->  
+           <div [hidden]="!pwRef.errors.minlength"> Please enter atleast 8 characters</div> <!--Display alert only if user has not entered min length of input  -->  
+      </div>
+      <p>{{myForm.pwRef}}</p>
+    </div>
+
+    <div class="form-group"> <!--Create a form group  -->
+      <label>Confirm Password</label>
+      <input type="password" name="conpassword" required class="form-control"  #conpwRef="ngModel" [(ngModel)]="myForm.conpwRef">
+      <!-- For the input confirm password, check for required field and minlength and assign ngModel directive for two way binding -->
+      <div *ngIf=" pwRef.valid && conpwRef.errors && (conpwRef.dirty || conpwRef.touched)" class="alert alert-danger"><!--Display only if user has attempted to enter values into the field  -->
+           <div [hidden]="!conpwRef.errors.required"> Please re-enter the password</div>    <!-- Display alert only if user has not entered in the field -->    
+      </div>
+      <div *ngIf="pwRef.valid && (conpwRef.dirty || conpwRef.touched) && pwRef.value !== conpwRef.value" class="alert alert-danger"><!-- Display alert if user has entered password but does not match with the re-entered password -->
+          <div> The re-entered password does not match</div> <!-- Display when the re-entered password doen not match the password  -->      
+      </div>
+      <p>{{myForm.conpwRef}}</p>
+    </div>
+        
+    <button class="btn btn-primary btn-md" type="submit" [disabled]="!myForm.form.valid">Submit</button><!-- Disable submit button unless the form is valid  -->
+  </form>
+</div>
